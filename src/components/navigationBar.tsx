@@ -9,7 +9,7 @@ export default function navigationBar() {
             <ul className="flex justify-end w-1/2 pr-4">
                 <Link href="/"><li className="m-1">Home</li></Link>
                 <Link href="/about"><li className="m-1">About me</li></Link>
-                <li className="m-1">Blog</li>
+                <Link href="/blog"><li className="m-1">Blog</li></Link>
             </ul>
         </nav>
     )
