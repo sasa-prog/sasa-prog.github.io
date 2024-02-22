@@ -1,6 +1,6 @@
 import { client } from "@/lib/microcmsClient";
 import Head from "next/head";
-import Image from "next/image";
+import { BaseImg } from "@/components/microcmsImage";
 
 export async function generateStaticParams() {
     const data = await client.get({
@@ -22,7 +22,7 @@ export default async function Blog({ params }:any) {
             </Head>
             <div className="mx-auto">
                 <h1 className="text-xl">{blog.title}</h1>
-                <Image src={blog.thumbnail.url} height="1200" width="840" alt="aa"/>
+                <BaseImg imgUrl={blog.thumbnail.url} imgAlt="aa" size="xl"/>
                 <h2>{blog.subtitle}</h2>
                 <div dangerouslySetInnerHTML={{__html: blog.body}}></div>
             </div>

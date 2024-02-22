@@ -1,3 +1,5 @@
+import microCMSLoader from "@/lib/loader";
+import { BaseImg } from "@/components/microcmsImage";
 import { client } from "@/lib/microcmsClient";
 import { Metadata } from "next";
 import Image from "next/image";
@@ -21,7 +23,7 @@ export default async function Blog() {
                             return (
                                 <Link href={`/blog/${data.id}`} key={data.id}>
                                     <article>
-                                    <Image src={data.thumbnail.url} width="848" height="1200" alt="aaa"/>
+                                    <BaseImg imgUrl={data.thumbnail.url} size="xl" imgAlt="aaa"/>
                                     <h3>{data.title}</h3>
                                     </article>
                                 </Link>

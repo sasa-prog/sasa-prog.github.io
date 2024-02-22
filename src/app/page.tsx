@@ -1,3 +1,4 @@
+import { BaseImg } from "@/components/microcmsImage";
 import { Metadata } from "next";
 import Image from "next/image";
 export const metadata: Metadata = {
@@ -7,7 +8,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col p-6">
       <div className="mx-auto">
-        <Image src="/sasa.png" alt="avatar" width="115" height="115" className="mx-auto"/>
+        <img src="sasa.png" width={115} height={115} alt="profile"/>
           <h1>笹&apos;s profile</h1><br/>
           <section>
             <h2>自己紹介</h2>
