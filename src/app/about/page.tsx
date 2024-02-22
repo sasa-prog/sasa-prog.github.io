@@ -10,7 +10,7 @@ export default function About() {
         <>
           <main className="flex min-h-screen flex-col p-24">
             <div className="mx-auto">
-              <Image src="/sasa.png" alt="avatar" width="115" height="115" className="mx-auto"/>
+            <img src="sasa.png" width={115} height={115} alt="profile" className="mx-auto"/>
               <h1>笹&apos;s profile</h1><br/>
               <section>
                 <h2>自己紹介</h2>
