@@ -12,7 +12,7 @@ export default function Home() {
           <h1>笹&apos;s profile</h1><br/>
           <section>
             <h2>自己紹介</h2>
-            <p>14yo / Second year junior high school student<br />プログラミングが好きな学生。適当にサイトとか作ってます<br/>学校では帰宅部エース<br/>ピアノも一応やってます。</p>
+            <p>14yo / Second year junior high school student<br />プログラミングが好きな学生。適当にサイトとか作ってます<br/>学校では帰宅部エースだったけど3年から吹奏楽に入った<br/>ピアノも一応やってます。</p>
           </section>
           <section>
             <h2>言語</h2>
