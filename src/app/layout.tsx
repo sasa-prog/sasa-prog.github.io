@@ -15,7 +15,9 @@ export default function RootLayout({
         <header className="sticky top-0 z-20 drop-shadow-md">
           <Nav />
         </header>
-        {children}
+        <main className="flex min-h-screen flex-col p-6 bg-slate-900">
+          {children}
+        </main>
       </body>
     </html>
   );

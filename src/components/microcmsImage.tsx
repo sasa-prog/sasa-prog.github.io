@@ -5,7 +5,7 @@ import microCMSLoader from '@/lib/loader';
 type BaseImg = {
   imgUrl: string;
   imgAlt: string;
-  size: 'sm' | 'lg' | 'free' | 'xl';
+  size: 'sm' | 'lg' | 'free' | 'xl' | 'thumbnail';
   img?: {
     height: number;
     width: number;
@@ -22,6 +22,9 @@ const sizeList = {
   },
   xl: {
     size: 500,
+  },
+  thumbnail: {
+    size: 400
   }
 };
 

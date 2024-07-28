@@ -21,10 +21,10 @@ export default async function Blog() {
                     {
                         data.contents.map((data:any) => {
                             return (
-                                <Link href={`/blog/${data.id}`} key={data.id}>
-                                    <article>
-                                    <BaseImg imgUrl={data.thumbnail.url} size="xl" imgAlt="aaa"/>
-                                    <h3>{data.title}</h3>
+                                <Link href={`/blog/${data.id}`} key={data.id}className="mx-5">
+                                    <article className="border-solid border-black w-[20vw]">
+                                        <BaseImg imgUrl={data.thumbnail.url} size="thumbnail" imgAlt="aaa"/>
+                                        <h3>{data.title}</h3>
                                     </article>
                                 </Link>
                             )
