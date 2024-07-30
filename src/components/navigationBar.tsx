@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function navigationBar() {
     return (
-        <nav className="flex items-center bg-slate-950 text-lime-600">
+        <nav className="flex items-center bg-gray-800 text-lime-600 shadow-md">
             <div className="justify-start w-1/2 pl-2 py-2">
                 <a href="/"><h2 className="text-2xl m-2">笹&apos;s WEBSITE(制作中)</h2></a>
             </div>
