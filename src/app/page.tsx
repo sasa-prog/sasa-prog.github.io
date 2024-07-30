@@ -6,7 +6,7 @@ export const metadata: Metadata = {
 };
 export default function Home() {
   return (
-    <div className="mx-auto text-white">
+    <div className="mx-auto">
       <h1 className="text-3xl">Profile</h1>
       <img src="sasa.png" width={128} height={128} alt="profile" className="mx-auto my-auto border-solid border-4 rounded-full border-teal-600 bg-white"/>
       <br/>
