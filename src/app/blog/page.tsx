@@ -14,9 +14,9 @@ export default async function Blog() {
         endpoint: "blog"
     })
     return (
-        <main className="min-h-screen p-6">
+        
             <div className="px-auto">
-                <h1>Blog</h1>
+                <h1 className="text-3xl mb-3">Blog</h1>
                 <div className="flex">
                     {
                         data.contents.map((data:any) => {
@@ -32,6 +32,5 @@ export default async function Blog() {
                     }
                 </div>
             </div>
-        </main>
     )
 }
