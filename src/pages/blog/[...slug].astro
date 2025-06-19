@@ -1,0 +1,36 @@
+---
+import { client } from '../../lib/microcms.js';
+import type { Post } from '../../lib/microcms.js';
+import BlogPost from '../../layouts/BlogPost.astro';
+
+export async function getStaticPaths() {
+  const data = await client.get({ endpoint: 'blog' });
+  console.log('microCMS blog data:', JSON.stringify(data, null, 2)); // デバッグ用出力
+  console.log('aa');
+  return data.contents.map((post: Post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props as {
+  post: import('../../layouts/BlogPost.astro').MicroCMSPostProps;
+};
+---
+
+<BlogPost
+  title={post.title}
+  description={post.metaDescription ?? ''}
+  pubDate={new Date(post.publishedAt)}
+  updatedDate={post.updatedAt ? new Date(post.updatedAt) : undefined}
+  heroImage={post.thumbnail
+    ? {
+        src: post.thumbnail.url,
+        width: post.thumbnail.width ?? 0,
+        height: post.thumbnail.height ?? 0,
+        format: post.thumbnail.url.split('.').pop() as any,
+      }
+    : undefined}
+>
+  <div set:html={post.body} />
+</BlogPost>

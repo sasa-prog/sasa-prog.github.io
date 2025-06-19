@@ -1,0 +1,153 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import { Image } from 'astro:assets';
+
+type Props = CollectionEntry<'blog'>['data'];
+
+// microCMS用props型
+export interface MicroCMSPostProps {
+  id: string;
+  title: string;
+  body: string;
+  publishedAt: string;
+  updatedAt: string;
+  thumbnail?: { url: string; width?: number; height?: number; alt?: string };
+  author?: { id: string; name: string };
+  draftKey?: string;
+  metaDescription?: string;
+}
+
+// Use a type guard to check if Astro.props matches MicroCMSPostProps
+function isMicroCMSPostProps(props: any): props is MicroCMSPostProps {
+  return (
+    typeof props.id === 'string' &&
+    typeof props.title === 'string' &&
+    typeof props.body === 'string' &&
+    typeof props.publishedAt === 'string' &&
+    typeof props.updatedAt === 'string'
+  );
+}
+
+const props = Astro.props;
+const post: MicroCMSPostProps | undefined = isMicroCMSPostProps(props)
+  ? props
+  : undefined;
+
+const title = post?.title ?? props.title;
+const body = post?.body ?? '';
+const publishedAt =
+  post?.publishedAt && !isNaN(Date.parse(post.publishedAt))
+    ? post.publishedAt
+    : props.pubDate instanceof Date && !isNaN(props.pubDate.getTime())
+      ? props.pubDate.toISOString()
+      : undefined;
+const updatedAt =
+  post?.updatedAt && !isNaN(Date.parse(post.updatedAt))
+    ? post.updatedAt
+    : props.updatedDate instanceof Date && !isNaN(props.updatedDate.getTime())
+      ? props.updatedDate.toISOString()
+      : undefined;
+const thumbnail =
+  post?.thumbnail ??
+  (props.heroImage
+    ? {
+        url: props.heroImage.src,
+        width: props.heroImage.width,
+        height: props.heroImage.height,
+        alt: props.title,
+      }
+    : undefined);
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={title} />
+    <style>
+      main {
+        width: calc(100% - 2em);
+        max-width: 100%;
+        margin: 0;
+      }
+      .hero-image {
+        width: 100%;
+      }
+      .hero-image img {
+        display: block;
+        margin: 0 auto;
+        border-radius: 12px;
+        box-shadow: var(--box-shadow);
+      }
+      .prose {
+        width: 720px;
+        max-width: calc(100% - 2em);
+        margin: auto;
+        padding: 1em;
+        color: rgb(var(--gray-dark));
+      }
+      .title {
+        margin-bottom: 1em;
+        padding: 1em 0;
+        text-align: center;
+        line-height: 1;
+      }
+      .title h1 {
+        margin: 0 0 0.5em 0;
+      }
+      .date {
+        margin-bottom: 0.5em;
+        color: rgb(var(--gray));
+      }
+      .last-updated-on {
+        font-style: italic;
+      }
+    </style>
+  </head>
+
+  <body>
+    <Header />
+    <main>
+      <article>
+        <div class="hero-image">
+          {
+            thumbnail && (
+              <img
+                src={thumbnail.url}
+                alt={thumbnail.alt || ''}
+                width={thumbnail.width || 1020}
+                height={thumbnail.height || 510}
+              />
+            )
+          }
+        </div>
+        <div class="prose">
+          <div class="title">
+            <div class="date">
+              {
+                publishedAt && (
+                  <div>
+                    投稿日： <FormattedDate date={new Date(publishedAt)} />
+                  </div>
+                )
+              }
+              {
+                updatedAt && (
+                  <div class="last-updated-on">
+                    最終更新日： <FormattedDate date={new Date(updatedAt)} />
+                  </div>
+                )
+              }
+            </div>
+            <h1>{title}</h1>
+            <hr />
+          </div>
+          <slot />
+        </div>
+      </article>
+    </main>
+    <Footer />
+  </body>
+</html>

@@ -1,0 +1,272 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import ProfileImage from '../assets/profile.png';
+import { client } from '../lib/microcms.js';
+import FormattedDate from '../components/FormattedDate.astro';
+import { Image } from 'astro:assets';
+
+const data = await client.get({ endpoint: 'blog', queries: { limit: 3 } });
+const posts = data.contents;
+/**ホームページ（トップページ）に置くと良い内容の例をいくつかご提案します。
+
+1. 自己紹介の簡単なまとめ
+名前・肩書き・一言キャッチコピー
+丸いプロフィール画像（aboutと同じものでもOK）
+2. 最新記事・おすすめ記事の一覧
+microCMSやcontentフォルダから最新3〜6件の記事カードを表示
+「もっと見る」や「ブログ一覧へ」ボタン
+3. SNSや外部リンク
+Twitter, GitHub, Zennなどのアイコンリンク
+4. サイトの目的やメッセージ
+「このサイトについて」「どんな情報を発信しているか」など
+5. お問い合わせや連絡先（必要なら）
+例：シンプルな構成イメージ
+ヒーローセクション（大きな自己紹介＋画像＋キャッチコピー）
+最新記事カード（3件くらい横並び）
+SNSリンク
+Aboutページやブログ一覧へのリンク
+こんなレイアウトもおすすめ
+ポイント：
+
+「初めて来た人が“誰のどんなサイトか”すぐ分かる」こと
+「最近の活動や記事が目に入りやすい」こと
+もし「こういう雰囲気にしたい」「ポートフォリオっぽくしたい」などご希望があれば、さらに具体的なレイアウト案やAstro用のサンプルコードもご提案できます。ご希望があればお知らせください！ */
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <style>
+      .hero {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 3rem 1rem 2rem 1rem;
+        background: linear-gradient(120deg, #f5f7fa 0%, #c3cfe2 100%);
+        border-radius: 0 0 32px 32px;
+        box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
+      }
+      .hero-profile {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #fff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        margin-bottom: 1.2rem;
+      }
+      .hero-title {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        color: #222;
+      }
+      .hero-caption {
+        font-size: 1.1rem;
+        color: #555;
+        margin-bottom: 1.2rem;
+        text-align: center;
+      }
+      .hero-sns {
+        display: flex;
+        gap: 1.2rem;
+        margin-top: 0.5rem;
+        justify-content: center;
+      }
+      .hero-sns a {
+        color: #1976d2;
+        font-size: 1.3rem;
+        transition: color 0.2s;
+      }
+      .hero-sns a:hover {
+        color: #0d47a1;
+      }
+      .latest-section {
+        max-width: 900px;
+        margin: 2.5rem auto 2rem auto;
+        padding: 0 1rem;
+      }
+      .latest-title {
+        font-size: 1.3rem;
+        font-weight: bold;
+        margin-bottom: 1.2rem;
+        color: #222;
+      }
+      .latest-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .latest-card {
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: box-shadow 0.2s;
+      }
+      .latest-card:hover {
+        box-shadow: 0 6px 32px rgba(0, 0, 0, 0.13);
+      }
+      .latest-thumb {
+        width: 100%;
+        height: 160px;
+        background: #f5f5f5;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .latest-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .latest-body {
+        padding: 1.1rem 1.2rem 1rem 1.2rem;
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .latest-title-link {
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #1976d2;
+        text-decoration: none;
+        margin-bottom: 0.5rem;
+        transition: color 0.2s;
+      }
+      .latest-title-link:hover {
+        color: #0d47a1;
+        text-decoration: underline;
+      }
+      .latest-date {
+        color: #888;
+        font-size: 0.95rem;
+        margin-bottom: 0.2rem;
+      }
+      .more-link {
+        display: block;
+        text-align: right;
+        margin-top: 1.2rem;
+        color: #1976d2;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 1.05rem;
+        transition: color 0.2s;
+      }
+      .more-link:hover {
+        color: #0d47a1;
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <section class="hero">
+        <img
+          src={ProfileImage.src}
+          alt="プロフィール画像"
+          class="hero-profile"
+        />
+        <div class="hero-title">笹</div>
+        <div class="hero-caption">
+          そこら辺の高専生。主にJavaやC++、Node.jsで開発しています。<br />
+          趣味はプログラミングとピアノ。Atcoderにも参戦中。
+        </div>
+        <div class="hero-sns">
+          <a
+            href="https://twitter.com/sasa_take05"
+            target="_blank"
+            rel="noopener"
+            aria-label="Twitter"
+          >
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"
+              ><path
+                d="M22.46 6c-.77.35-1.6.58-2.47.69a4.3 4.3 0 0 0 1.88-2.37 8.59 8.59 0 0 1-2.72 1.04A4.28 4.28 0 0 0 16.11 4c-2.37 0-4.29 1.92-4.29 4.29 0 .34.04.67.11.99C7.69 9.13 4.07 7.38 1.64 4.7c-.37.64-.58 1.38-.58 2.17 0 1.5.76 2.82 1.92 3.6-.7-.02-1.36-.21-1.94-.53v.05c0 2.1 1.5 3.85 3.5 4.25-.36.1-.74.16-1.13.16-.28 0-.54-.03-.8-.08.54 1.7 2.1 2.94 3.95 2.97A8.6 8.6 0 0 1 2 19.54c-.32 0-.63-.02-.94-.06A12.13 12.13 0 0 0 8.29 21.5c7.55 0 11.68-6.26 11.68-11.68 0-.18-.01-.36-.02-.54A8.18 8.18 0 0 0 24 4.59a8.36 8.36 0 0 1-2.54.7z"
+              ></path></svg
+            >
+          </a>
+          <a
+            href="https://github.com/sasa-prog"
+            target="_blank"
+            rel="noopener"
+            aria-label="GitHub"
+          >
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"
+              ><path
+                d="M12 2C6.48 2 2 6.58 2 12.26c0 4.5 2.87 8.32 6.84 9.67.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.62-3.37-1.36-3.37-1.36-.45-1.18-1.1-1.5-1.1-1.5-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.28 2.75 1.05A9.38 9.38 0 0 1 12 7.43c.85.004 1.7.12 2.5.35 1.9-1.33 2.74-1.05 2.74-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.8 0 .27.18.58.69.48A10.01 10.01 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"
+              ></path></svg
+            >
+          </a>
+          <a
+            href="https://zenn.dev/your_zenn"
+            target="_blank"
+            rel="noopener"
+            aria-label="Zenn"
+          >
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"
+              ><path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.93 7.36l-4.24 7.36c-.19.33-.67.33-.86 0l-4.24-7.36c-.19-.33.05-.74.43-.74h8.48c.38 0 .62.41.43.74z"
+              ></path></svg
+            >
+          </a>
+        </div>
+      </section>
+      <section class="latest-section">
+        <div class="latest-title">最新記事</div>
+        <ul class="latest-list">
+          {
+            posts.map(
+              (post: {
+                id: string;
+                thumbnail?: {
+                  url: string;
+                  width?: number;
+                  height?: number;
+                  alt?: string;
+                };
+                title: string;
+                publishedAt: string;
+              }) => (
+                <li class="latest-card">
+                  <a href={`/blog/${post.id}/`} class="latest-title-link">
+                    <div class="latest-thumb">
+                      {post.thumbnail?.url && (
+                        <Image
+                          width={320}
+                          height={160}
+                          src={post.thumbnail.url}
+                          alt={post.thumbnail.alt ?? '記事サムネイル'}
+                        />
+                      )}
+                    </div>
+                    <div class="latest-body">
+                      <div class="latest-date">
+                        <FormattedDate date={new Date(post.publishedAt)} />
+                      </div>
+                      {post.title}
+                    </div>
+                  </a>
+                </li>
+              ),
+            )
+          }
+        </ul>
+        <a href="/blog/" class="more-link">もっと見る →</a>
+      </section>
+    </main>
+    <Footer />
+  </body>
+</html>
