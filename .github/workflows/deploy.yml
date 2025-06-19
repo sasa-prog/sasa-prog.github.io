@@ -39,8 +39,10 @@ jobs:
             MICROCMS_SERVICE_DOMAIN: ${{ secrets.BLOG_API_ENDPOINT }}
             MICROCMS_API_KEY: ${{ secrets.BLOG_API_KEY }}
         run: npm run build
+        
       - name: add nojekyll
         run: touch ./out/.nojekyll
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
