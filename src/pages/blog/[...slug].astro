@@ -5,8 +5,6 @@ import BlogPost from '../../layouts/BlogPost.astro';
 
 export async function getStaticPaths() {
   const data = await client.get({ endpoint: 'blog' });
-  console.log('microCMS blog data:', JSON.stringify(data, null, 2)); // デバッグ用出力
-  console.log('aa');
   return data.contents.map((post: Post) => ({
     params: { slug: post.id },
     props: { post },
