@@ -42,11 +42,13 @@ const posts = data.contents;
         margin-bottom: 0.5rem;
         color: #222;
       }
-      .hero-caption {
-        font-size: 1.1rem;
-        color: #555;
-        margin-bottom: 1.2rem;
+      .hero-bio {
+        font-size: 1.08rem;
+        color: #444;
+        margin-bottom: 1.5rem;
+        line-height: 1.8;
         text-align: center;
+        max-width: 540px;
       }
       .hero-sns {
         display: flex;
@@ -55,12 +57,21 @@ const posts = data.contents;
         justify-content: center;
       }
       .hero-sns a {
-        color: #1976d2;
-        font-size: 1.3rem;
+        color: #333;
+        font-size: 1.1rem;
         transition: color 0.2s;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4em;
+        text-decoration: none;
       }
       .hero-sns a:hover {
-        color: #0d47a1;
+        color: #000;
+        text-decoration: underline;
+      }
+      .hero-sns-icon {
+        width: 1.3em;
+        height: 1.3em;
       }
       .latest-section {
         max-width: 900px;
@@ -151,57 +162,52 @@ const posts = data.contents;
     <Header />
     <main>
       <section class="hero">
-        <img
-          src={ProfileImage.src}
+        <Image
+          src={ProfileImage}
           alt="プロフィール画像"
           class="hero-profile"
+          width="120"
+          height="120"
         />
-        <div class="hero-title">笹</div>
-        <div class="hero-caption">
-          そこら辺の高専生。主にJavaやC++、Node.jsで開発しています。<br />
-          趣味はプログラミングとピアノ。Atcoderにも参戦中。
+        <h1 class="hero-title">笹</h1>
+        <div class="hero-bio">
+          そこら辺の高専生。<br />
+          主にJavaやC++、Node.jsで開発しています。<br />
+          趣味はプログラミングとピアノ。 最近Atcoderにも参戦中。<br />
+          <br />
+          このサイトでは、プログラミングに関する記事や、日々の学びを共有しています。<br
+          />
+          よろしくお願いします！
         </div>
         <div class="hero-sns">
-          <a
-            href="https://twitter.com/sasa_take05"
-            target="_blank"
-            rel="noopener"
-            aria-label="Twitter"
-          >
-            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"
+          <a href="https://github.com/sasigume" target="_blank" rel="noopener">
+            <svg
+              class="hero-sns-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 16 16"
+              fill="currentColor"
               ><path
-                d="M22.46 6c-.77.35-1.6.58-2.47.69a4.3 4.3 0 0 0 1.88-2.37 8.59 8.59 0 0 1-2.72 1.04A4.28 4.28 0 0 0 16.11 4c-2.37 0-4.29 1.92-4.29 4.29 0 .34.04.67.11.99C7.69 9.13 4.07 7.38 1.64 4.7c-.37.64-.58 1.38-.58 2.17 0 1.5.76 2.82 1.92 3.6-.7-.02-1.36-.21-1.94-.53v.05c0 2.1 1.5 3.85 3.5 4.25-.36.1-.74.16-1.13.16-.28 0-.54-.03-.8-.08.54 1.7 2.1 2.94 3.95 2.97A8.6 8.6 0 0 1 2 19.54c-.32 0-.63-.02-.94-.06A12.13 12.13 0 0 0 8.29 21.5c7.55 0 11.68-6.26 11.68-11.68 0-.18-.01-.36-.02-.54A8.18 8.18 0 0 0 24 4.59a8.36 8.36 0 0 1-2.54.7z"
+                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
               ></path></svg
             >
+            GitHub
           </a>
-          <a
-            href="https://github.com/sasa-prog"
-            target="_blank"
-            rel="noopener"
-            aria-label="GitHub"
-          >
-            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"
+          <a href="https://x.com/sasigume" target="_blank" rel="noopener">
+            <svg
+              class="hero-sns-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 16 16"
+              fill="currentColor"
               ><path
-                d="M12 2C6.48 2 2 6.58 2 12.26c0 4.5 2.87 8.32 6.84 9.67.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.62-3.37-1.36-3.37-1.36-.45-1.18-1.1-1.5-1.1-1.5-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.28 2.75 1.05A9.38 9.38 0 0 1 12 7.43c.85.004 1.7.12 2.5.35 1.9-1.33 2.74-1.05 2.74-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.8 0 .27.18.58.69.48A10.01 10.01 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"
+                d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 5.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"
               ></path></svg
             >
-          </a>
-          <a
-            href="https://zenn.dev/your_zenn"
-            target="_blank"
-            rel="noopener"
-            aria-label="Zenn"
-          >
-            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"
-              ><path
-                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.93 7.36l-4.24 7.36c-.19.33-.67.33-.86 0l-4.24-7.36c-.19-.33.05-.74.43-.74h8.48c.38 0 .62.41.43.74z"
-              ></path></svg
-            >
+            Twitter
           </a>
         </div>
       </section>
       <section class="latest-section">
-        <div class="latest-title">最新記事</div>
+        <h2 class="latest-title">最新の投稿</h2>
         <ul class="latest-list">
           {
             posts.map(
