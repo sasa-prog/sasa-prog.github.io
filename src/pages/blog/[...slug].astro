@@ -34,5 +34,5 @@ const html = await renderMarkdownToHtml(post.body ?? '');
       }
     : undefined}
 >
-  <div set:html={post.body} />
+  <div set:html={html} />
 </BlogPost>
