@@ -2,6 +2,7 @@
 import { client } from '../../lib/microcms.js';
 import type { Post } from '../../lib/microcms.js';
 import BlogPost from '../../layouts/BlogPost.astro';
+import { renderMarkdownToHtml } from '../../lib/markdown.js';
 
 export async function getStaticPaths() {
   const data = await client.get({ endpoint: 'blog' });
@@ -14,6 +15,9 @@ export async function getStaticPaths() {
 const { post } = Astro.props as {
   post: import('../../layouts/BlogPost.astro').MicroCMSPostProps;
 };
+
+// Render markdown body (from microCMS) to safe HTML
+const html = await renderMarkdownToHtml(post.body ?? '');
 ---
 
 <BlogPost
