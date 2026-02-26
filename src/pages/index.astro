@@ -1,14 +1,14 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
-import ProfileImage from '../assets/profile.png';
-import { client } from '../lib/microcms.js';
-import FormattedDate from '../components/FormattedDate.astro';
-import { Image } from 'astro:assets';
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import ProfileImage from "../assets/profile.png";
+import { client } from "../lib/microcms.js";
+import FormattedDate from "../components/FormattedDate.astro";
+import { Image } from "astro:assets";
 
-const data = await client.get({ endpoint: 'blog', queries: { limit: 3 } });
+const data = await client.get({ endpoint: "blog", queries: { limit: 3 } });
 const posts = data.contents;
 ---
 
@@ -171,13 +171,13 @@ const posts = data.contents;
         />
         <h1 class="hero-title">笹</h1>
         <div class="hero-bio">
-          そこら辺の高専生。<br />
-          主にJavaやC++、Node.jsで開発しています。<br />
-          趣味はプログラミングとピアノ。 最近Atcoderにも参戦中。<br />
+          そこら辺の情報系高専生。要するにJK。<br />
+          主にJavaやC++、Node.js環境で開発しています。<br />
+          趣味はピアノと将棋。 最近はAtcoderにも参戦中。<br />
           <br />
-          このサイトでは、プログラミングに関する記事や、日々の学びを共有しています。<br
+          このサイトでは、プログラミングに関する記事や、日々ふと感じたことを徒然なるままに書こうかなと思います。<br
           />
-          よろしくお願いします！
+          個人の見解が多分に含まれると思うので、あくまで参考程度に見ていただけると幸いです。
         </div>
         <div class="hero-sns">
           <a href="https://github.com/sasa-prog" target="_blank" rel="noopener">
@@ -230,7 +230,7 @@ const posts = data.contents;
                           width={320}
                           height={160}
                           src={post.thumbnail.url}
-                          alt={post.thumbnail.alt ?? '記事サムネイル'}
+                          alt={post.thumbnail.alt ?? "記事サムネイル"}
                         />
                       )}
                     </div>
